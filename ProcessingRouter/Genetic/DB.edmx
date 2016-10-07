@@ -1,0 +1,325 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Evolution2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Colours">
+          <Key>
+            <PropertyRef Name="ColourID" />
+          </Key>
+          <Property Name="ColourID" Type="int" Nullable="false" />
+          <Property Name="RGB" Type="varchar" MaxLength="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InstructionOrder">
+          <Key>
+            <PropertyRef Name="Sequence" />
+            <PropertyRef Name="InstructionID" />
+            <PropertyRef Name="ParameterSetID" />
+          </Key>
+          <Property Name="Sequence" Type="int" Nullable="false" />
+          <Property Name="InstructionID" Type="bigint" Nullable="false" />
+          <Property Name="ParameterSetID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Instructions">
+          <Key>
+            <PropertyRef Name="InstructionID" />
+          </Key>
+          <Property Name="InstructionID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ColourID" Type="int" Nullable="false" />
+          <Property Name="StartX" Type="int" Nullable="false" />
+          <Property Name="StartY" Type="int" Nullable="false" />
+          <Property Name="EndX" Type="int" Nullable="false" />
+          <Property Name="EndY" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ParameterSets">
+          <Key>
+            <PropertyRef Name="ParameterSetID" />
+          </Key>
+          <Property Name="ParameterSetID" Type="bigint" Nullable="false" />
+          <Property Name="IsTemplate" Type="bit" Nullable="false" />
+          <Property Name="Score" Type="bigint" />
+        </EntityType>
+        <EntityType Name="Settings">
+          <Key>
+            <PropertyRef Name="Setting" />
+          </Key>
+          <Property Name="Setting" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Value" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_InstructionOrder_Instructions">
+          <End Role="Instructions" Type="Self.Instructions" Multiplicity="1" />
+          <End Role="InstructionOrder" Type="Self.InstructionOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instructions">
+              <PropertyRef Name="InstructionID" />
+            </Principal>
+            <Dependent Role="InstructionOrder">
+              <PropertyRef Name="InstructionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InstructionOrder_ParameterSets">
+          <End Role="ParameterSets" Type="Self.ParameterSets" Multiplicity="1" />
+          <End Role="InstructionOrder" Type="Self.InstructionOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParameterSets">
+              <PropertyRef Name="ParameterSetID" />
+            </Principal>
+            <Dependent Role="InstructionOrder">
+              <PropertyRef Name="ParameterSetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Instructions_Colours">
+          <End Role="Colours" Type="Self.Colours" Multiplicity="1" />
+          <End Role="Instructions" Type="Self.Instructions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Colours">
+              <PropertyRef Name="ColourID" />
+            </Principal>
+            <Dependent Role="Instructions">
+              <PropertyRef Name="ColourID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GangBang" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetGeneration" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ParameterSetID" Type="bigint" Mode="InOut" />
+        </Function>
+        <Function Name="RegisterResult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ParameterSetId" Type="int" Mode="In" />
+          <Parameter Name="Score" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="Evolution2ModelStoreContainer">
+          <EntitySet Name="Colours" EntityType="Self.Colours" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InstructionOrder" EntityType="Self.InstructionOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Instructions" EntityType="Self.Instructions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ParameterSets" EntityType="Self.ParameterSets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Settings" EntityType="Self.Settings" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_InstructionOrder_Instructions" Association="Self.FK_InstructionOrder_Instructions">
+            <End Role="Instructions" EntitySet="Instructions" />
+            <End Role="InstructionOrder" EntitySet="InstructionOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InstructionOrder_ParameterSets" Association="Self.FK_InstructionOrder_ParameterSets">
+            <End Role="ParameterSets" EntitySet="ParameterSets" />
+            <End Role="InstructionOrder" EntitySet="InstructionOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Instructions_Colours" Association="Self.FK_Instructions_Colours">
+            <End Role="Colours" EntitySet="Colours" />
+            <End Role="Instructions" EntitySet="Instructions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Evolution2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="InstructionOrder">
+          <Key>
+            <PropertyRef Name="Sequence" />
+            <PropertyRef Name="InstructionID" />
+            <PropertyRef Name="ParameterSetID" />
+          </Key>
+          <Property Name="Sequence" Type="Int32" Nullable="false" />
+          <Property Name="InstructionID" Type="Int64" Nullable="false" />
+          <Property Name="ParameterSetID" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="ParameterSets" Relationship="Self.FK_InstructionOrder_ParameterSets" FromRole="InstructionOrder" ToRole="ParameterSets" />
+          <NavigationProperty Name="Instructions" Relationship="Evolution2Model.FK_InstructionOrder_Instructions" FromRole="InstructionOrder" ToRole="Instructions" />
+        </EntityType>
+        <EntityType Name="ParameterSets">
+          <Key>
+            <PropertyRef Name="ParameterSetID" />
+          </Key>
+          <Property Name="ParameterSetID" Type="Int64" Nullable="false" />
+          <Property Name="IsTemplate" Type="Boolean" Nullable="false" />
+          <Property Name="Score" Type="Int64" />
+          <NavigationProperty Name="InstructionOrder" Relationship="Self.FK_InstructionOrder_ParameterSets" FromRole="ParameterSets" ToRole="InstructionOrder" />
+        </EntityType>
+        <Association Name="FK_InstructionOrder_ParameterSets">
+          <End Role="ParameterSets" Type="Self.ParameterSets" Multiplicity="1" />
+          <End Role="InstructionOrder" Type="Self.InstructionOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParameterSets">
+              <PropertyRef Name="ParameterSetID" />
+            </Principal>
+            <Dependent Role="InstructionOrder">
+              <PropertyRef Name="ParameterSetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Evolution2Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="InstructionOrder" EntityType="Self.InstructionOrder" />
+          <EntitySet Name="ParameterSets" EntityType="Self.ParameterSets" />
+          <AssociationSet Name="FK_InstructionOrder_ParameterSets" Association="Self.FK_InstructionOrder_ParameterSets">
+            <End Role="ParameterSets" EntitySet="ParameterSets" />
+            <End Role="InstructionOrder" EntitySet="InstructionOrder" />
+          </AssociationSet>
+          <EntitySet Name="Colours" EntityType="Evolution2Model.Colours" />
+          <EntitySet Name="Instructions" EntityType="Evolution2Model.Instructions" />
+          <AssociationSet Name="FK_Instructions_Colours" Association="Evolution2Model.FK_Instructions_Colours">
+            <End Role="Colours" EntitySet="Colours" />
+            <End Role="Instructions" EntitySet="Instructions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InstructionOrder_Instructions" Association="Evolution2Model.FK_InstructionOrder_Instructions">
+            <End Role="Instructions" EntitySet="Instructions" />
+            <End Role="InstructionOrder" EntitySet="InstructionOrder" />
+          </AssociationSet>
+          <FunctionImport Name="GetGeneration" ReturnType="Collection(Evolution2Model.GetGeneration_Result)">
+          <Parameter Name="ParameterSetID" Mode="InOut" Type="Int64" />
+          </FunctionImport>
+          <EntitySet Name="Settings" EntityType="Evolution2Model.Settings" />
+          <FunctionImport Name="GangBang" />
+          <FunctionImport Name="RegisterResult">
+            <Parameter Name="ParameterSetId" Mode="In" Type="Int32" />
+            <Parameter Name="Score" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="Colours">
+          <Key>
+            <PropertyRef Name="ColourID" />
+          </Key>
+          <Property Name="ColourID" Type="Int32" Nullable="false" />
+          <Property Name="RGB" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Instructions" Relationship="Evolution2Model.FK_Instructions_Colours" FromRole="Colours" ToRole="Instructions" />
+        </EntityType>
+        <EntityType Name="Instructions">
+          <Key>
+            <PropertyRef Name="InstructionID" />
+          </Key>
+          <Property Name="InstructionID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ColourID" Type="Int32" Nullable="false" />
+          <Property Name="StartX" Type="Int32" Nullable="false" />
+          <Property Name="StartY" Type="Int32" Nullable="false" />
+          <Property Name="EndX" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Colours" Relationship="Evolution2Model.FK_Instructions_Colours" FromRole="Instructions" ToRole="Colours" />
+          <NavigationProperty Name="InstructionOrder" Relationship="Evolution2Model.FK_InstructionOrder_Instructions" FromRole="Instructions" ToRole="InstructionOrder" />
+          <Property Name="EndY" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Instructions_Colours">
+          <End Type="Evolution2Model.Colours" Role="Colours" Multiplicity="1" />
+          <End Type="Evolution2Model.Instructions" Role="Instructions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Colours">
+              <PropertyRef Name="ColourID" />
+            </Principal>
+            <Dependent Role="Instructions">
+              <PropertyRef Name="ColourID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InstructionOrder_Instructions">
+          <End Type="Evolution2Model.Instructions" Role="Instructions" Multiplicity="1" />
+          <End Type="Evolution2Model.InstructionOrder" Role="InstructionOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instructions">
+              <PropertyRef Name="InstructionID" />
+            </Principal>
+            <Dependent Role="InstructionOrder">
+              <PropertyRef Name="InstructionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="GetGeneration_Result">
+          <Property Type="String" Name="colour" Nullable="false" MaxLength="6" />
+          <Property Type="Int32" Name="StartX" Nullable="false" />
+          <Property Type="Int32" Name="StartY" Nullable="false" />
+          <Property Type="Int32" Name="EndX" Nullable="false" />
+          <Property Type="Int32" Name="EndY" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Settings">
+          <Key>
+            <PropertyRef Name="Setting" />
+          </Key>
+          <Property Name="Setting" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Evolution2ModelStoreContainer" CdmEntityContainer="Evolution2Entities">
+          <EntitySetMapping Name="InstructionOrder">
+            <EntityTypeMapping TypeName="Evolution2Model.InstructionOrder">
+              <MappingFragment StoreEntitySet="InstructionOrder">
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="InstructionID" ColumnName="InstructionID" />
+                <ScalarProperty Name="ParameterSetID" ColumnName="ParameterSetID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParameterSets">
+            <EntityTypeMapping TypeName="Evolution2Model.ParameterSets">
+              <MappingFragment StoreEntitySet="ParameterSets">
+                <ScalarProperty Name="ParameterSetID" ColumnName="ParameterSetID" />
+                <ScalarProperty Name="IsTemplate" ColumnName="IsTemplate" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Colours">
+            <EntityTypeMapping TypeName="Evolution2Model.Colours">
+              <MappingFragment StoreEntitySet="Colours">
+                <ScalarProperty Name="RGB" ColumnName="RGB" />
+                <ScalarProperty Name="ColourID" ColumnName="ColourID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Instructions">
+            <EntityTypeMapping TypeName="Evolution2Model.Instructions">
+              <MappingFragment StoreEntitySet="Instructions">
+                <ScalarProperty Name="EndY" ColumnName="EndY" />
+                <ScalarProperty Name="EndX" ColumnName="EndX" />
+                <ScalarProperty Name="StartY" ColumnName="StartY" />
+                <ScalarProperty Name="StartX" ColumnName="StartX" />
+                <ScalarProperty Name="ColourID" ColumnName="ColourID" />
+                <ScalarProperty Name="InstructionID" ColumnName="InstructionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetGeneration" FunctionName="Evolution2Model.Store.GetGeneration">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Evolution2Model.GetGeneration_Result">
+                <ScalarProperty Name="colour" ColumnName="colour" />
+                <ScalarProperty Name="StartX" ColumnName="StartX" />
+                <ScalarProperty Name="StartY" ColumnName="StartY" />
+                <ScalarProperty Name="EndX" ColumnName="EndX" />
+                <ScalarProperty Name="EndY" ColumnName="EndY" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Settings">
+            <EntityTypeMapping TypeName="Evolution2Model.Settings">
+              <MappingFragment StoreEntitySet="Settings">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Setting" ColumnName="Setting" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GangBang" FunctionName="Evolution2Model.Store.GangBang" />
+          <FunctionImportMapping FunctionImportName="RegisterResult" FunctionName="Evolution2Model.Store.RegisterResult" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

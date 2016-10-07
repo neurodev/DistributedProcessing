@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d73c0f270ba54f6cb250794d837ceb08" Name="Diagram1">
+        <EntityTypeShape EntityType="Evolution2Model.InstructionOrder" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Evolution2Model.ParameterSets" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="Evolution2Model.FK_InstructionOrder_ParameterSets" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Evolution2Model.Colours" Width="1.5" PointX="7.75" PointY="1.375" />
+        <EntityTypeShape EntityType="Evolution2Model.Instructions" Width="1.5" PointX="5.5" PointY="1" />
+        <AssociationConnector Association="Evolution2Model.FK_Instructions_Colours" />
+        <AssociationConnector Association="Evolution2Model.FK_InstructionOrder_Instructions" />
+        <EntityTypeShape EntityType="Evolution2Model.Settings" Width="1.5" PointX="0.75" PointY="3.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

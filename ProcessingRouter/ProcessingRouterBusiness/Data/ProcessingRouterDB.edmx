@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ProcessingRouterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="processingRouter_ParameterSets">
+          <Key>
+            <PropertyRef Name="ParameterSetID" />
+          </Key>
+          <Property Name="ParameterSetID" Type="int" Nullable="false" />
+          <Property Name="Parameters" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="processingRouter_ParametersSent">
+          <Key>
+            <PropertyRef Name="WorkerID" />
+            <PropertyRef Name="ParameterSetID" />
+          </Key>
+          <Property Name="WorkerID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ParameterSetID" Type="int" Nullable="false" />
+          <Property Name="Result" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_ParametersSent_ParameterSets">
+          <End Role="processingRouter_ParameterSets" Type="Self.processingRouter_ParameterSets" Multiplicity="1" />
+          <End Role="processingRouter_ParametersSent" Type="Self.processingRouter_ParametersSent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="processingRouter_ParameterSets">
+              <PropertyRef Name="ParameterSetID" />
+            </Principal>
+            <Dependent Role="processingRouter_ParametersSent">
+              <PropertyRef Name="ParameterSetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProcessingRouterModelStoreContainer">
+          <EntitySet Name="processingRouter_ParameterSets" EntityType="Self.processingRouter_ParameterSets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="processingRouter_ParametersSent" EntityType="Self.processingRouter_ParametersSent" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ParametersSent_ParameterSets" Association="Self.FK_ParametersSent_ParameterSets">
+            <End Role="processingRouter_ParameterSets" EntitySet="processingRouter_ParameterSets" />
+            <End Role="processingRouter_ParametersSent" EntitySet="processingRouter_ParametersSent" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProcessingRouterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ParameterSets">
+          <Key>
+            <PropertyRef Name="ParameterSetID" />
+          </Key>
+          <Property Name="ParameterSetID" Type="Int32" Nullable="false" />
+          <Property Name="Parameters" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ParametersSent" Relationship="Self.FK_ParametersSent_ParameterSets" FromRole="processingRouter_ParameterSets" ToRole="processingRouter_ParametersSent" />
+        </EntityType>
+        <EntityType Name="ParametersSent">
+          <Key>
+            <PropertyRef Name="WorkerID" />
+            <PropertyRef Name="ParameterSetID" />
+          </Key>
+          <Property Name="WorkerID" Type="Guid" Nullable="false" />
+          <Property Name="ParameterSetID" Type="Int32" Nullable="false" />
+          <Property Name="Result" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ParameterSets" Relationship="Self.FK_ParametersSent_ParameterSets" FromRole="processingRouter_ParametersSent" ToRole="processingRouter_ParameterSets" />
+        </EntityType>
+        <Association Name="FK_ParametersSent_ParameterSets">
+          <End Role="processingRouter_ParameterSets" Type="ProcessingRouterModel.ParameterSets" Multiplicity="1" />
+          <End Role="processingRouter_ParametersSent" Type="ProcessingRouterModel.ParametersSent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="processingRouter_ParameterSets">
+              <PropertyRef Name="ParameterSetID" />
+            </Principal>
+            <Dependent Role="processingRouter_ParametersSent">
+              <PropertyRef Name="ParameterSetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProcessingRouterEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ParameterSets" EntityType="ProcessingRouterModel.ParameterSets" />
+          <EntitySet Name="ParametersSent" EntityType="ProcessingRouterModel.ParametersSent" />
+          <AssociationSet Name="FK_ParametersSent_ParameterSets" Association="Self.FK_ParametersSent_ParameterSets">
+            <End Role="processingRouter_ParameterSets" EntitySet="ParameterSets" />
+            <End Role="processingRouter_ParametersSent" EntitySet="ParametersSent" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProcessingRouterModelStoreContainer" CdmEntityContainer="ProcessingRouterEntities">
+          <EntitySetMapping Name="ParameterSets">
+            <EntityTypeMapping TypeName="ProcessingRouterModel.ParameterSets">
+              <MappingFragment StoreEntitySet="processingRouter_ParameterSets">
+                <ScalarProperty Name="ParameterSetID" ColumnName="ParameterSetID" />
+                <ScalarProperty Name="Parameters" ColumnName="Parameters" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParametersSent">
+            <EntityTypeMapping TypeName="ProcessingRouterModel.ParametersSent">
+              <MappingFragment StoreEntitySet="processingRouter_ParametersSent">
+                <ScalarProperty Name="WorkerID" ColumnName="WorkerID" />
+                <ScalarProperty Name="ParameterSetID" ColumnName="ParameterSetID" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

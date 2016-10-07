@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessingRouterFacade", "ProcessingRouter\ProcessingRouterFacade.csproj", "{3D4BBC3F-592B-4A3E-9552-38E585AFE15C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessingRouterBusiness", "ProcessingRouterBusiness\ProcessingRouterBusiness.csproj", "{E9C0C7D4-AA4D-4E8C-A767-5FA41AD5C157}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Genetic", "Genetic\Genetic.csproj", "{98A0B3DC-48D2-40A0-B14F-B885B4B75523}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3D4BBC3F-592B-4A3E-9552-38E585AFE15C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D4BBC3F-592B-4A3E-9552-38E585AFE15C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D4BBC3F-592B-4A3E-9552-38E585AFE15C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D4BBC3F-592B-4A3E-9552-38E585AFE15C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9C0C7D4-AA4D-4E8C-A767-5FA41AD5C157}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9C0C7D4-AA4D-4E8C-A767-5FA41AD5C157}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9C0C7D4-AA4D-4E8C-A767-5FA41AD5C157}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9C0C7D4-AA4D-4E8C-A767-5FA41AD5C157}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98A0B3DC-48D2-40A0-B14F-B885B4B75523}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98A0B3DC-48D2-40A0-B14F-B885B4B75523}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98A0B3DC-48D2-40A0-B14F-B885B4B75523}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98A0B3DC-48D2-40A0-B14F-B885B4B75523}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
