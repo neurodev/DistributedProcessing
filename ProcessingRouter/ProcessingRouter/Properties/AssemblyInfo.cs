@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("ProcessingRouterFacade")]
-[assembly: AssemblyCopyright("Copyright © Andrew Bale")]
+[assembly: AssemblyCopyright("Copyright © Andrew Bale 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
