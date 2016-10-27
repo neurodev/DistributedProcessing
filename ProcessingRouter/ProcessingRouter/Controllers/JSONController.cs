@@ -10,16 +10,17 @@ namespace ProcessingRouterFacade.Controllers
     {
         // GET: JSON
         [HttpPost]
-        public ActionResult GetNewParameters(Guid WorkerID)
+        public ActionResult GetNewParameters(Guid WorkerID, string Requestor)
         {
+            base.InitializeProcessingController(Requestor);
             return new ContentResult { Content = processingController.GetNewParameterSet(WorkerID), ContentType = "application/json" };
             //return View();
         }
 
         [HttpPost]
-        public ActionResult RegisterResult(Guid WorkerID, int ParameterSetId, string Result)
+        public ActionResult RegisterResult(Guid WorkerID, int ParameterSetId, string Result, string Requestor)
         {
-            
+            base.InitializeProcessingController(Requestor);
             return new ContentResult { Content = processingController.ResultReceived(WorkerID, Result, ParameterSetId), ContentType = "application/json" };
         }
     }

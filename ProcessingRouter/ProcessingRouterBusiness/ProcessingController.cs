@@ -14,6 +14,7 @@ namespace ProcessingRouterBusiness
         private Interfaces.IProcessingRequestor _requestor;
         public int ResultsNeededForVerification { get; set; }
         public string GetParameterControllerURL { get; set; }
+        public string RequestorName { get; set; }
         public ProcessingController(Interfaces.IProcessingRequestor requestor)
         {
             _requestor = requestor;
@@ -26,6 +27,8 @@ namespace ProcessingRouterBusiness
             var template = new StringBuilder(System.IO.File.ReadAllText(System.IO.Path.Combine(filePath, "bin","ProcessorStartup.js")));
             template.Replace("[replace#workerId]", WorkerId.ToString());
             template.Replace("[replace#parameterURL]", GetParameterControllerURL);
+            template.Replace("[replace#requestorName]", _requestor.GetType().ToString());
+
 
 
 

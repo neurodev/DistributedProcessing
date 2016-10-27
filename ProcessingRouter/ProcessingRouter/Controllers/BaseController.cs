@@ -13,21 +13,24 @@ namespace ProcessingRouterFacade.Controllers
 
         protected IProcessingRequestor requestor;
         protected ProcessingController processingController;
+       
+        protected void InitializeProcessingController(string RequestorName)
+        {
+            var objectName = RequestorName;
+                        Type objectType = (from asm in AppDomain.CurrentDomain.GetAssemblies()
+                                           from type in asm.GetTypes()
+                                           where type.IsClass
+                                           && type.FullName == objectName
+                                           select type).Single();
+
+                        var requestor = Activator.CreateInstance(objectType);
+                        processingController = new ProcessingController((IProcessingRequestor)requestor);
+                        processingController.ResultsNeededForVerification = 1;
+        }
+
         public BaseController()
         {
-            var objectName = "Genetic.Requestor";
-            Type objectType = (from asm in AppDomain.CurrentDomain.GetAssemblies()
-                               from type in asm.GetTypes()
-                               where type.IsClass
-                               //&& type.Name == "Requestor" 
-                               && type.FullName == objectName
-                               select type).Single();
-
-            var requestor = Activator.CreateInstance(objectType);
-            //var requestor = Activator.CreateInstance("Genetic", "Genetic.Requestor");
-            //processingController = new ProcessingController((IProcessingRequestor)requestor.Unwrap());
-            processingController = new ProcessingController((IProcessingRequestor)requestor);
-            processingController.ResultsNeededForVerification = 1;
+            
         }
         
     }

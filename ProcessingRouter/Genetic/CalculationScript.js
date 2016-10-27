@@ -73,11 +73,6 @@ function DrawStep() {
     } else {
         var currentStep = workingParameters.steps[currentPosition];
         plotLine(currentStep.StartX, currentStep.StartY, currentStep.EndX, currentStep.EndY, currentStep.colour);
-        //generationContext.beginPath();
-        //generationContext.strokeStyle = currentStep.colour;
-        //generationContext.moveTo(currentStep.StartX, currentStep.StartY);
-        //generationContext.lineTo(currentStep.EndX, currentStep.EndY);
-        //generationContext.stroke();
         currentPosition += 1;
         setTimeout(DrawStep, [replace#delay]);
     }

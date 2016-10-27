@@ -1,10 +1,10 @@
-﻿function ReturnResult(parametersetID, result) {
+﻿var requestorName = '[replace#requestorName]';
+
+function ReturnResult(parametersetID, result) {
     var userId = '[replace#workerId]';
-    //alert("ReturnResult:" + result);
-    loadJSON("[replace#parameterURL]/RegisterResult","WorkerId=" +userId + "&ParameterSetId=" + parametersetID + "&Result="+result,
+    loadJSON("[replace#parameterURL]/RegisterResult","WorkerId=" +userId + "&ParameterSetId=" + parametersetID + "&Result="+result + "&Requestor="+requestorName,
      function (data) { setTimeout(function () { StartCalculation(data); }, 5); },
         function(xhr) { console.error(xhr); });
-    //TODO : Post back results
 }
 
 
@@ -29,7 +29,7 @@ function loadJSON(path,params, success, error) {
 function GetNewParameterSet() {
     alert('Getting new parameterset');
     var userId = '[replace#workerId]';
-    loadJSON("[replace#parameterURL]/GetNewParameters", "WorkerId=" +userId,
+    loadJSON("[replace#parameterURL]/GetNewParameters", "WorkerId=" +userId + "&Requestor=" + requestorName,
         function (data) { StartCalculation(data); },
         function(xhr) { console.error(xhr); })
     

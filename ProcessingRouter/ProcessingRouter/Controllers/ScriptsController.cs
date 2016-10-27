@@ -9,8 +9,9 @@ namespace ProcessingRouterFacade.Controllers
     public class ScriptsController : BaseController
     {
         [ActionName("ProcessingClient.js")]
-        public ActionResult InitialScript()
+        public ActionResult InitialScript(string Requestor)
         {
+            base.InitializeProcessingController(Requestor);
             processingController.GetParameterControllerURL = Url.Action("Index","JSON");
             var model = processingController.Initialize();
 
