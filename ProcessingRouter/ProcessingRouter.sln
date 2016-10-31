@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessingRouterFacade", "P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessingRouterBusiness", "ProcessingRouterBusiness\ProcessingRouterBusiness.csproj", "{E9C0C7D4-AA4D-4E8C-A767-5FA41AD5C157}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Genetic", "Genetic\Genetic.csproj", "{98A0B3DC-48D2-40A0-B14F-B885B4B75523}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{4C091B8A-907A-49F4-818F-845498329847}"
 EndProject
 Global
@@ -25,10 +23,6 @@ Global
 		{E9C0C7D4-AA4D-4E8C-A767-5FA41AD5C157}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9C0C7D4-AA4D-4E8C-A767-5FA41AD5C157}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9C0C7D4-AA4D-4E8C-A767-5FA41AD5C157}.Release|Any CPU.Build.0 = Release|Any CPU
-		{98A0B3DC-48D2-40A0-B14F-B885B4B75523}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{98A0B3DC-48D2-40A0-B14F-B885B4B75523}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{98A0B3DC-48D2-40A0-B14F-B885B4B75523}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{98A0B3DC-48D2-40A0-B14F-B885B4B75523}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4C091B8A-907A-49F4-818F-845498329847}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4C091B8A-907A-49F4-818F-845498329847}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C091B8A-907A-49F4-818F-845498329847}.Release|Any CPU.ActiveCfg = Release|Any CPU

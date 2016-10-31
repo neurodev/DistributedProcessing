@@ -158,10 +158,6 @@
     <Content Include="Views\Scripts\ProcessingClient.js.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Genetic\Genetic.csproj">
-      <Project>{98a0b3dc-48d2-40a0-b14f-b885b4b75523}</Project>
-      <Name>Genetic</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProcessingRouterBusiness\ProcessingRouterBusiness.csproj">
       <Project>{e9c0c7d4-aa4d-4e8c-a767-5fa41ad5c157}</Project>
       <Name>ProcessingRouterBusiness</Name>
