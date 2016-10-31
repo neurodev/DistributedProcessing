@@ -22,6 +22,8 @@ namespace ProcessingRouterBusiness.Data
     
         public int ParameterSetID { get; set; }
         public string Parameters { get; set; }
+        public string RequestorClass { get; set; }
+        public int RequestorParameterSetID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ParametersSent> ParametersSent { get; set; }

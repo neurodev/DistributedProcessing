@@ -12,7 +12,6 @@ namespace ProcessingRouterBusiness
     {
         private ProcessingRepository _processingRepository = new ProcessingRepository();
         private Interfaces.IProcessingRequestor _requestor;
-        public int ResultsNeededForVerification { get; set; }
         public string GetParameterControllerURL { get; set; }
         public string RequestorName { get; set; }
         public ProcessingController(Interfaces.IProcessingRequestor requestor)
@@ -47,9 +46,10 @@ namespace ProcessingRouterBusiness
                 var NewParameterSet = _requestor.CalculationParameters();
                 var JSON = NewParameterSet.ToJSON();
                 
-                _processingRepository.SaveParameterset(NewParameterSet.ParameterSetId, JSON, WorkerId);
+                var parametersetId = _processingRepository.SaveParameterset(_requestor.GetType().ToString(),NewParameterSet.ParameterSetId, JSON, WorkerId);
                 return JSON;
             }
+
             _processingRepository.SaveParametersSent(ps.ParameterSetID, WorkerId);
 
             return ps.Parameters;
@@ -59,7 +59,7 @@ namespace ProcessingRouterBusiness
         {
             _processingRepository.UpdateResult(workerId, parametersetId, result);
             var results = _processingRepository.GetResultsCount(parametersetId, result);
-            if (results >= ResultsNeededForVerification)
+            if (results >= _requestor.RequiredMatchingResults())
             {
                 _processingRepository.DeleteParameterSet(parametersetId);
                 _requestor.RegisterResult(parametersetId, result);

@@ -1,20 +1,27 @@
 ﻿
-GO
-/****** Object:  Table [dbo].[processingRouter_ParameterSets]    Script Date: 28/10/2016 3:08:24 PM ******/
+
+
+/****** Object:  Table [dbo].[processingRouter_ParameterSets]    Script Date: 31/10/2016 4:57:13 PM ******/
 SET ANSI_NULLS ON
 GO
+
 SET QUOTED_IDENTIFIER ON
 GO
+
 CREATE TABLE [dbo].[processingRouter_ParameterSets](
-	[ParameterSetID] [int] NOT NULL,
+	[ParameterSetID] [int] IDENTITY(1,1) NOT NULL,
 	[Parameters] [nvarchar](max) NOT NULL,
-PRIMARY KEY CLUSTERED 
+	[RequestorClass] [nvarchar](255) NOT NULL,
+	[RequestorParameterSetID] [int] NOT NULL,
+ CONSTRAINT [PK__processi__72CB91D5BCBEE7FB] PRIMARY KEY CLUSTERED 
 (
 	[ParameterSetID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
+
+
 /****** Object:  Table [dbo].[processingRouter_ParametersSent]    Script Date: 28/10/2016 3:08:24 PM ******/
 SET ANSI_NULLS ON
 GO

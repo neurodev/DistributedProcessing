@@ -46,12 +46,22 @@ namespace ProcessingRouterBusiness.Data
         //    return DBContext.ParameterSets.Where(x => x.ParameterSetID == ParametersetId).FirstOrDefault();
         //}
 
-        public void SaveParameterset(int ParametersetId, string Parameters, Guid WorkerID)
+        public int SaveParameterset(string RequestorClass, int RequestorParametersetId, string Parameters, Guid WorkerID)
         {
-            if(DBContext.ParameterSets.Count(x=>x.ParameterSetID==ParametersetId)==0)
-                DBContext.ParameterSets.Add(new ParameterSets() { ParameterSetID = ParametersetId, Parameters = Parameters });
-            DBContext.ParametersSent.Add(new ParametersSent() { ParameterSetID = ParametersetId, WorkerID = WorkerID });
+            var parameterSet = DBContext.ParameterSets.Where(x => x.RequestorParameterSetID == RequestorParametersetId && x.RequestorClass == RequestorClass).FirstOrDefault();
+            if (parameterSet == null)
+            {
+                DBContext.ParameterSets.Add(new ParameterSets()
+                {
+                    RequestorClass = RequestorClass,
+                    RequestorParameterSetID = RequestorParametersetId,
+                    Parameters = Parameters
+                });
+                DBContext.SaveChanges();
+            }
+            DBContext.ParametersSent.Add(new ParametersSent() { ParameterSetID = parameterSet.ParameterSetID, WorkerID = WorkerID });
             DBContext.SaveChanges();
+            return parameterSet.ParameterSetID;
         }
 
         public void SaveParametersSent(int ParametersetId, Guid WorkerID)

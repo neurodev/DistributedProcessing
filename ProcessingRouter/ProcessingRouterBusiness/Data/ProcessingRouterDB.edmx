@@ -4,13 +4,15 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ProcessingRouterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ProcessingRouterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="processingRouter_ParameterSets">
           <Key>
             <PropertyRef Name="ParameterSetID" />
           </Key>
-          <Property Name="ParameterSetID" Type="int" Nullable="false" />
+          <Property Name="ParameterSetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Parameters" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="RequestorClass" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="RequestorParameterSetID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="processingRouter_ParametersSent">
           <Key>
@@ -41,8 +43,7 @@
             <End Role="processingRouter_ParametersSent" EntitySet="processingRouter_ParametersSent" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ProcessingRouterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -53,6 +54,8 @@
           <Property Name="ParameterSetID" Type="Int32" Nullable="false" />
           <Property Name="Parameters" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="ParametersSent" Relationship="Self.FK_ParametersSent_ParameterSets" FromRole="processingRouter_ParameterSets" ToRole="processingRouter_ParametersSent" />
+          <Property Name="RequestorClass" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="RequestorParameterSetID" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="ParametersSent">
           <Key>
@@ -93,6 +96,8 @@
           <EntitySetMapping Name="ParameterSets">
             <EntityTypeMapping TypeName="ProcessingRouterModel.ParameterSets">
               <MappingFragment StoreEntitySet="processingRouter_ParameterSets">
+                <ScalarProperty Name="RequestorParameterSetID" ColumnName="RequestorParameterSetID" />
+                <ScalarProperty Name="RequestorClass" ColumnName="RequestorClass" />
                 <ScalarProperty Name="ParameterSetID" ColumnName="ParameterSetID" />
                 <ScalarProperty Name="Parameters" ColumnName="Parameters" />
               </MappingFragment>

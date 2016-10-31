@@ -25,7 +25,6 @@ namespace ProcessingRouterFacade.Controllers
 
                         var requestor = Activator.CreateInstance(objectType);
                         processingController = new ProcessingController((IProcessingRequestor)requestor);
-                        processingController.ResultsNeededForVerification = 1;
         }
 
         public BaseController()
