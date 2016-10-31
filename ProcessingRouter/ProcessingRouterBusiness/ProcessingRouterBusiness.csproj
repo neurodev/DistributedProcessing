@@ -105,6 +105,7 @@
       <DependentUpon>ProcessingRouterDB.edmx</DependentUpon>
       <LastGenOutput>ProcessingRouterDB.cs</LastGenOutput>
     </Content>
+    <Content Include="Deployment\SetUpTables.sql" />
     <Content Include="ProcessorStartup.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
